@@ -4,18 +4,21 @@ import { StatusBar, StyleSheet, Text, View, TextInput, Button } from 'react-nati
 const App = () => {
   const [input1, setInput1] = useState(0);
   const [input2, setInput2] = useState(0);
+  const [history, setHistory] = useState([]);
 
   sum = () => {
     result = parseFloat(input1) + parseFloat(input2);
+    setHistory(prevHistory => [...prevHistory, `${input1} + ${input2} = ${result}`]);
     alert(result);
   }
 
-  
-subtract = () => {
-  result = parseFloat(input1) - parseFloat(input2);
-  alert(result);
-}
-  
+
+  subtract = () => {
+    result = parseFloat(input1) - parseFloat(input2);
+    setHistory(prevHistory => [...prevHistory, `${input1} - ${input2} = ${result}`]);
+    alert(result);
+  }
+
 
   return (
     <View style={styles.container}>
@@ -41,9 +44,18 @@ subtract = () => {
         <Text>      </Text>
         <Button variant="outlined" title=" - " onPress={subtract}></Button>
       </View>
+      
+      <View>
+        {history.map((item, index) => (
+          <Text key={index}>{item}</Text>
+        ))}
+      </View>
         
       <StatusBar style="auto" />
+
+      
     </View>
+
   );
 };
 
